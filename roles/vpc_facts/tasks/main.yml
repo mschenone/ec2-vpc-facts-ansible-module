@@ -1,2 +1,12 @@
 ---
 # tasks file for vpc_facts
+- name: Get VPC Topology information using vpc-id
+  ec2_vpc_facts:
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ vpc_id }}"
+    aws_public_key: "{{ aws_public_key }}"
+    aws_private_key: "{{ aws_private_key }}"
+  register: vpc_data
+
+- name: Output content of VPC Facts
+  debug: var=vpc_data

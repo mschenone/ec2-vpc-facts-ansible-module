@@ -1,3 +1,0 @@
----
-# vars file for vpc_facts
-vpc_id: 'vpc-abcd1234'

@@ -1,5 +1,5 @@
 ---
-  - name: Run ambari_state role
+  - name: Run ec2_vpc_facts role
     hosts: localhost
     connection: local
     roles:

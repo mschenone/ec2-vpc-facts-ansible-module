@@ -23,7 +23,7 @@ Our module currently imports Amazon's Boto2 and [Boto3](https://github.com/boto/
 
 # Variables
 
-The module uses specific variables related to AWS credentials and regions that are intentionally eliminated from the included example.  Ansible describes several best practices to handle AWS Credentials [here](https://docs.ansible.com/ansible/guide_aws.html).  In the example, a vars/main.yml file contains these three variables in order to work:
+The module uses specific variables related to AWS credentials and regions that are intentionally eliminated from the included example.  Ansible describes several best practices to handle AWS Credentials [here](https://docs.ansible.com/ansible/guide_aws.html).  In the example, a `roles/vpc_facts/vars/main.yml` file contains these three variables in order to work:
 
 * vpc_id: the unique VPC identifier for a previously launched AWS VPC
 * ec2_region: the region for the VPC (eg `us-west-2`)

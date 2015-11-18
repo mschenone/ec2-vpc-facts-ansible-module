@@ -4,8 +4,8 @@
   ec2_vpc_facts:
     region: "{{ ec2_region }}"
     vpc_id: "{{ vpc_id }}"
-    aws_public_key: "{{ aws_public_key }}"
-    aws_private_key: "{{ aws_private_key }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
   register: vpc_data
 
 - name: Output content of VPC Facts

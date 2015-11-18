@@ -1,6 +1,6 @@
 ---
   - name: Run ambari_state role
-        hosts: localhost
-                    connection: local
-                                roles:
-                                              - ambari_state
+    hosts: localhost
+    connection: local
+    roles:
+      - ambari_state

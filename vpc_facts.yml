@@ -3,4 +3,4 @@
     hosts: localhost
     connection: local
     roles:
-      - ambari_state
+      - vpc_facts

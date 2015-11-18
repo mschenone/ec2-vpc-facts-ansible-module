@@ -33,7 +33,7 @@ The module uses specific variables related to AWS credentials and regions that a
 # Use
 
 To launch the example included in this repo (after creating and populating the necessary variables):
-```
+```shell
 ansible-playbook vpc_facts.yml
 ```
 

@@ -21,7 +21,22 @@ Last year, we accomplished this using POJO's and the AWS Java SDK, but it requir
 
 Our module currently imports Amazon's Boto2 and [Boto3](https://github.com/boto/boto3) Python libraries.  All of the module code uses the new Boto3 library as it closely parallels many of the relationships we wanted exposed in our JSON data structure. [As Ansible moves to its major 2.0 release, we maintain backwards compatibility with Boto2](https://github.com/ansible/ansible/issues/13010), but hope to deprecate Boto2 soon.   Using Boto3, we can quickly add new items to the topology data structure based on customer needs.
 
-# Example use
+# Variables
+
+The module uses specific variables related to AWS credentials and regions that are intentionally eliminated from the included example.  Ansible describes several best practices to handle AWS Credentials [here](https://docs.ansible.com/ansible/guide_aws.html).  In the example, a vars/main.yml file contains these three variables in order to work:
+
+* vpc_id: the unique VPC identifier for a previously launched AWS VPC
+* ec2_region: the region for the VPC (eg `us-west-2`)
+* aws_secret_key: the secret access key associated with an AWS credential
+* aws_access_key: the public access key associated with an AWS credential
+
+# Use
+
+To launch the example included in this repo (after creating and populating the necessary variables):
+
+`ansible-playbook vpc_facts.yml`
+
+# Other Examples
 
 There are two ways to query a VPC, the first, using the unique VPC identifier:
 ```yaml

@@ -8,7 +8,7 @@ TypeError: Value of unknown type: <class 'boto3.resources.factory.ec2.Route'>, e
 
 because `ec2_vpc_facts` returns a list of `ec2.Route` objects, but function `exit_json` in `lib/ansible/module_utils/basic.py` does not know about the ec2.Route class.
 
-A quick fix is to return a list of the dictonaries mapping `ec2.Route` objects.
+My quick fix: return a list of the dictionaries mapping `ec2.Route` objects.
 
 
 # Variables

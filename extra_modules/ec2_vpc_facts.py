@@ -177,7 +177,10 @@ def get_vpc_route_tables(module, vpc):
         for rt in rt_iterator:
             rt_dict = dict()
             rt_dict['id'] = rt.id
-            rt_dict['routes'] = rt.routes
+
+            rt_dict['routes']=[]
+            for r in rt.routes:
+                rt_dict['routes'].append({'destination_cidr_block=': r.destination_cidr_block, 'gateway_id': r.gateway_id, 'state': r.state })
             rts.append(rt_dict)
     except Exception, e:
         module.fail_json(msg="Could not return route table resources " + str(e))

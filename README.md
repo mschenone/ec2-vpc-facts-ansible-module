@@ -1,25 +1,15 @@
 # Description
 
-`ec2_vpc_facts` is an Ansible module that discovers assets contained within an AWS VPC, and creates a JSON data structure mapping the relationships between discovered components. This module is a building block to represent VPC networking topologies. As any AWS customer knows, it is not easy to manage assets in the AWS Web Console beyond a few instances. Ansible has a [AWS inventory module](https://docs.ansible.com/ansible/intro_dynamic_inventory.html#example-aws-ec2-external-inventory-script) that *only* lists servers. We needed something a little more robust (and faster) to map the relationships of virtual instances to other components such as subnets, security groups, and asset tags.
+`ec2_vpc_facts` is an Ansible module that discovers assets contained within an AWS VPC, and creates a JSON data structure mapping the relationships between discovered components. This module is a building block to represent VPC networking topologies.
 
-Last year, we accomplished this using POJO's and the AWS Java SDK, but it required a lot more code, did not facilitate easy re-use, and was not as accessible to a broader set of tasks. Ansible and YAML playbooks changed that for us. Our requirement was to model the current as-is VPC topology as a JSON data structure to include the AWS unique identifiers and other relevant metadata. The output could then be parsed, used as input for other Ansible modules, or transformed for use in other ways. As the VPC topologies change over time, we could  run this Ansible module on a regular basis and keep our topology representation up-to-date. Currently, we discover the following assets, the associated relevant metadata, and map their relationships in a single JSON data structure:
+The original version by dbhirko reports the error below:
 
+TypeError: Value of unknown type: <class 'boto3.resources.factory.ec2.Route'>, ec2.Route(route_table_id='rtb-69ca4d0e', destination_cidr_block='172.22.0.0/16')
 
-* Virtual Private Clouds
-* Subnets
-* Route Tables
-* Routes
-* Internet Gateways
-* AutoScale Groups
-* EC2 Instances
-* Key Pairs
-* Security Groups
-* IP Addresses
-* Resource Tags
+because `ec2_vpc_facts` returns a list of `ec2.Route` objects, but function `exit_json` in `lib/ansible/module_utils/basic.py` does not know about the ec2.Route class.
 
-# Boto Dependency
+A quick fix is to return a list of the dictonaries mapping `ec2.Route` objects.
 
-Our module currently imports Amazon's Boto2 and [Boto3](https://github.com/boto/boto3) Python libraries.  All of the module code uses the new Boto3 library as it closely parallels many of the relationships we wanted exposed in our JSON data structure. [As Ansible moves to its major 2.0 release, we maintain backwards compatibility with Boto2](https://github.com/ansible/ansible/issues/13010), but hope to deprecate Boto2 soon.   Using Boto3, we can quickly add new items to the topology data structure based on customer needs.
 
 # Variables
 
